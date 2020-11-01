@@ -72,7 +72,8 @@ void getSeq(HWND hWnd, SizeSeq sizeSeq, bool gen, const char* path) {
 
 	SetWindowText(hWnd, result);
 }
-void startTest(HWND hWnd1, HWND hWnd2) {
+void startTest(HWND hWndInput, HWND hWndOutput1, HWND hWndOutput2, Alg alg1, Alg alg2, TypeImpl type_impl1, TypeImpl type_impl2 ) {
+	
     int testArr[5] = { 11, 112, 23, 153, 122222 };
     std::ostringstream oss;
 
@@ -81,6 +82,6 @@ void startTest(HWND hWnd1, HWND hWnd2) {
     std::wstring stemp = s2ws(out);
     LPCWSTR result = stemp.c_str();
 
-    SetWindowText(hWnd1, result);
-    SetWindowText(hWnd2, result);
+    SetWindowText(hWndOutput1, result);
+    SetWindowText(hWndOutput2, result);
 }

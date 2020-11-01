@@ -19,6 +19,11 @@ enum class Alg {
     HEAP
 };
 
+enum class TypeImpl {
+    ARRAY_LIST,
+	LINKED_LIST
+};
+
 bool chckValue(const int* arr, int size, int x) {
     bool res = false;
     for (int i = 0; i < size; ++i) {

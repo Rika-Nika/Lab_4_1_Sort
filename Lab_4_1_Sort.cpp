@@ -25,6 +25,11 @@ const char* PATH_MEDIUM_FILE = "Medium.txt";
 const char* PATH_LARG_FILE = "Large.txt";
 
 const char* PATH_FILE = nullptr;
+TypeImpl type_impl1 = TypeImpl::ARRAY_LIST;
+TypeImpl type_impl2 = TypeImpl::LINKED_LIST;
+
+Alg alg1 = Alg::SHELL;
+Alg alg2 = Alg::PYRAMID;
 
 
 SizeSeq sizeSeq  = SizeSeq::LARGE;
@@ -332,7 +337,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             hWnd,
             (HMENU)10009,
             hInst, NULL);
-        SendMessage(hSortQuick1Button, BM_SETCHECK, BST_CHECKED, 0);
+        SendMessage(hSortShell1Button, BM_SETCHECK, BST_CHECKED, 0);
 
         //Тип последовательности 1
          hGrpButtonsSeq1 = CreateWindowEx(WS_EX_WINDOWEDGE,
@@ -528,12 +533,42 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 break;
 
             case 10000:
-                startTest(hInputSeqButton, hOutpuSeqtButton1);
+
+                startTest(hInputSeqButton, hOutpuSeqtButton1, hOutpuSeqtButton2, alg1, alg2, type_impl1, type_impl2);
+                break;
+			case 10010:
+				type_impl1 = TypeImpl::ARRAY_LIST;
+				break;
+            case 10011:
+                type_impl1 = TypeImpl::LINKED_LIST;
+                break;
+            case 10015:
+                type_impl1 = TypeImpl::ARRAY_LIST;
+                break;
+            case 10016:
+                type_impl1 = TypeImpl::LINKED_LIST;
+                break;
+            case 10007:
+                alg1 = Alg::QUICK;
+                break;
+            case 10008:
+                alg1 = Alg::PYRAMID;
+                break;
+            case 10009:
+                alg1 = Alg::SHELL;
+                break;
+            case 10012:
+                alg2 = Alg::QUICK;
+                break;
+            case 10013:
+                alg2 = Alg::PYRAMID;
+                break;
+            case 10014:
+                alg2 = Alg::SHELL;
                 break;
 
-
-            default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
+			default:
+				return DefWindowProc(hWnd, message, wParam, lParam);
             }
         }
         break;
