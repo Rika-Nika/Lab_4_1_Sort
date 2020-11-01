@@ -38,48 +38,26 @@ public:
 };
 
 template <typename T>
-class BubbleSorter : public ISorter<T>
+class ShellSorter : public ISorter<T>
 {
-public:
 
 public:
-	BubbleSorter();
+	ShellSorter();
 
-	~BubbleSorter();
-
+	~ShellSorter();
+	
 	Sequence<T>* sort(Sequence<T>*, int (*cmp)(T, T)) override;
 };
 template<typename T>
-BubbleSorter<T>::BubbleSorter() = default;
+ShellSorter<T>::ShellSorter() = default;
 
 template<typename T>
-BubbleSorter<T>::~BubbleSorter() = default;
+ShellSorter<T>::~ShellSorter() = default;
 
 template<typename T>
-Sequence<T>* BubbleSorter<T>::sort(Sequence<T> * input, int (*cmp)(T, T)) {
+Sequence<T>* ShellSorter<T>::sort(Sequence<T> * input, int (*cmp)(T, T)) {
 	//
 	return nullptr;
 }
 
-
-template <typename T>
-class BubbleSorter2 :public ISorter<T>
-{
-public:
-	virtual Sequence<T>* Sort(Sequence<T>* input) override
-	{
-		//
-		return nullptr;
-	}
-};
-template <typename T>
-class BubbleSorter3 :public ISorter<T>
-{
-public:
-	virtual Sequence<T>* Sort(Sequence<T>* input) override
-	{
-		//
-		return nullptr;
-	}
-};
 
