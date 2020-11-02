@@ -5,6 +5,10 @@
 #include <iostream>
 #include <sstream>
 
+
+#include "ArraySequence.hpp"
+#include "DynamicArray.hpp"
+
 enum class SizeSeq {
     SMALL = 10,
     MEDIUM = 1000,
@@ -24,6 +28,20 @@ enum class TypeImpl {
 	LINKED_LIST
 };
 
+//int integerCompare(int a, int b) {
+//    if (a > b) {
+//        return 1;
+//    }
+//    else if (a < b) {
+//        return 0;
+//    }
+//    else {
+//        return 2;
+//    }
+//}
+
+
+
 bool chckValue(const int* arr, int size, int x) {
     bool res = false;
     for (int i = 0; i < size; ++i) {
@@ -33,13 +51,13 @@ bool chckValue(const int* arr, int size, int x) {
     }
     return res;
 }
+
 int* getRandomNumbers(int min, int max) {
-    static const double fraction = 1.0 / (static_cast<double>(RAND_MAX) + 1.0);
+    static const auto fraction = 1.0 / (static_cast<double>(RAND_MAX) + 1.0);
     auto* values = new int[max - min];
-    int value;
-    int size = 0;
-    for (int i = min; i < max; ++i) {
-        value = static_cast<int>(rand() * fraction * (max - min + 1) + min);
+    auto size = 0;
+    for (auto i = min; i < max; ++i) {
+	    const auto value = static_cast<int>(rand() * fraction * (max - min + 1) + min);
         if (!chckValue(values, size, value)) {
             values[i] = value;
             size++;
@@ -51,19 +69,20 @@ int* getRandomNumbers(int min, int max) {
     return values;
 }
 
-std::string getFromFile(const char * path) {
-
+ArraySequence<int> * getFromFile(const char * path) {
+	
+	ArraySequence<int> * res = new ArraySequence<int>();
+	
     int* values = nullptr;
     const char* pathPref = "c:\\tmp\\";
     std::stringstream ss;
-
     ss << pathPref << path;
     std::ifstream file(ss.str(), std::ios_base::in);
-    std::stringstream res;
+
     int a;
     while (file >> a)
     {
-       res<<a<<"\r\n";
+       res->Append(a);
     }
-    return res.str();
+    return res;
 }

@@ -13,6 +13,13 @@ private:
 	DynamicArray<T>* items;
 	int count;
 public:
+	void swap(int index1, int index2)override
+	{
+		T item = this->Get(index1);
+		this->Set(index1, this->Get(index2));
+		this->Set(index2, item) ;
+	}
+
 	//Создать пустой список
 	ArraySequence(const int count = 0)
 	{
@@ -33,7 +40,7 @@ public:
 	//Копирующий конструктор
 	ArraySequence(const ArraySequence<T>& other) {
 		this->count = other.count;
-		this->items = new DynamicArray<T>(*other.items);
+		this->items = new DynamicArray<T>(*other.items,other.GetLength());
 	};
 public:
 	//Получить длину списка
@@ -67,6 +74,11 @@ public:
 			throw Exception("Invalid index");
 		return this->items->Get(i);
 	};
+	void Set(const int i, T value)  {
+		if (i < 0 || i >= this->GetLength())
+			throw Exception("Invalid index");
+		this->items->Set(i, value) ;
+	};
 	//Получить список из всех элементов, начиная с startIndex и заканчивая endIndex
 	//начиная с 0.
 	Sequence<T>* GetSubsequence(const int start, const int end) const override
@@ -81,14 +93,22 @@ public:
 		int size = this->GetLength();
 		this->items->PrintArray(size);
 	}
+	std::string  PrintOut() const override {
+		int size = this->GetLength();
+		return this->items->PrintArrayOut(size);
+	}
+	
 
-	bool Equals(const Sequence<T>& sequence) const override {
-		if (this == &sequence) return true;
-		if (this->GetLength() != sequence.GetLength()) return false;
+	bool Equals(const Sequence<T>* sequence) const override {
+		if (this == sequence) return true;
+		if (this->GetLength() != sequence->GetLength()) return false;
 		for (int i = 0; i < this->GetLength(); i++) {
-			return this->items->EqualsItems(sequence.Get(i), this->Get(i));
+			return this->items->EqualsItems(sequence->Get(i), this->Get(i));
 		}
 	}
+	bool operator==(Sequence<T>* sequence) {
+		return this->Equals(sequence);
+	};
 private:
 	int MakeSizeArr(const int curentLength) {
 		int sizeArr = curentLength;

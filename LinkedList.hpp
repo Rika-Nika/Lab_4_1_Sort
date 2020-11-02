@@ -120,7 +120,17 @@ public:
 			temp = temp->next;
 		}
 	}
-
+	std::string printListOut()
+	{
+		std::ostringstream oss;
+		node* temp = this->head;
+		while (temp != NULL)
+		{
+			oss << temp->data << "\r\n"; 
+			temp = temp->next;
+		}
+		return oss.str();
+	}
 
 	bool EqualsItem(int value1, int value2) {
 		return value1 == value2;
@@ -163,6 +173,23 @@ public:
 		{
 			if (count == index)
 				return(current->data);
+			count++;
+			current = current->next;
+		}
+		//	assert(0);
+	}
+	void SetNth(int index, T value)
+	{
+		if (index < 0 || index >size - 1)
+		{
+			throw Exception("IndexOutOfRange");
+		}
+		node* current = head;
+		int count = 0;
+		while (current != NULL)
+		{
+			if (count == index)
+				current->data = value;
 			count++;
 			current = current->next;
 		}

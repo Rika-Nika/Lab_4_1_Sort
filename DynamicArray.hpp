@@ -24,6 +24,7 @@ public:
 				//throw Exception("Index out of range");
 			}
 			this->Set(i, *(items + i));
+			
 		}
 
 	};
@@ -38,15 +39,15 @@ public:
 		this->size = size;
 	}
 	//Копирующий конструктор
-	DynamicArray(const DynamicArray<T>& array) {
-		int size = array.GetSize();
+	DynamicArray(const DynamicArray<T>& array, int size) {
+		
 		this->items = new T[size];
 		this->isSet = new bool[size];
 		this->size = size;
 
 		for (int i = 0; i < size; i++)
 		{
-			this->Set(i, array.Get(i));
+				this->Set(i, array.Get(i));
 		}
 
 	};
@@ -58,9 +59,16 @@ public:
 	{
 		if (index < 0 || index >= this->size)
 			throw Exception("IndexOutOfRange");
-		if (this->isSet[index]!=true)
-			throw Exception("IndexOutOfRange: value is not set");
 		return this->items[index];
+	}
+
+	void Set(const int index, T value) const
+	{
+		if (index < 0 || index >= this->size)
+			throw Exception("IndexOutOfRange");
+
+		this->items[index]=value;
+		this->isSet[index] = true;
 	}
 
 	//Задать элемент по индексу
@@ -116,6 +124,18 @@ public:
 		{
 			PrintItems(i, this->Get(i));
 		}
+	}
+
+	std::string PrintArrayOut(int count) {
+		std::ostringstream oss;
+		if (count > this->GetSize()) {
+			throw Exception("IndexOutOfRange");
+		}
+		for (int i = 0; i < count; i++)
+		{
+			oss << this->Get(i) << "\r\n";
+		}
+		return oss.str();
 	}
 
 	bool Equals(const DynamicArray<T>& array) {

@@ -1,5 +1,4 @@
 #pragma once
-
 template <class T>
 class Sequence
 {
@@ -10,7 +9,8 @@ public:
 	virtual T Get(const int i) const = 0;
 	virtual Sequence<T>* GetSubsequence(const int start, const int end) const = 0;
 	virtual void Print() const = 0;
-	virtual bool Equals(const Sequence<T>& sequence) const = 0;
+	virtual std::string PrintOut() const = 0;
+	virtual bool Equals(const Sequence<T>* sequence) const = 0;
 public:
 	virtual void Append(T value) = 0;
 	virtual void Prepend(T value) = 0;
@@ -19,6 +19,8 @@ public:
 	virtual void Remove(T value) = 0; // Удаляет первое вхождение value
 	virtual void RemoveAll()  = 0;
 	virtual Sequence<T>* Concat(Sequence<T>* other) = 0;
+	virtual void swap(int, int) = 0;
+
 public:
 	virtual ~Sequence(){}
 };

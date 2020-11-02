@@ -12,13 +12,27 @@ private:
 	int count;
 
 public:
+
+	void swap(int index1, int index2)override
+	{
+		T item = this->Get(index1);
+		this->Set(index1, this->Get(index2))   ;
+		this->Set(index2, item) ;
+	}
+	
 	//Создать пустой список
 	LinkedListSequence() {
 		this->items = new LinkedList<T>();
 		this->count = 0;
 	};
 	//Копирующий конструктор
-	LinkedListSequence(const LinkedListSequence<T>& list) {
+	LinkedListSequence(const ArraySequence<T>& other) {
+		this->items = new LinkedList<T>();
+		this->count = 0;
+		for (int i = 0; i < other.GetLength(); ++i)
+		{
+			this->Append(other.Get(i));
+		}
 
 //		this = (LinkedListSequence<int>)*list.GetSubsequence(0, list.GetLength() - 1);
 	};
@@ -38,8 +52,11 @@ public:
 	T GetLast() const override {
 		return this->items->GetLast();
 	};
-	T Get(const int i)const override {
-		return this->items->GetNth(i);
+	T Get(const int i) const override {
+		return (this->items->GetNth(i));
+	};
+	void Set(const int i, T value) const  {
+		this->items->SetNth(i, value) ;
 	};
 
 
@@ -53,9 +70,23 @@ public:
 	void Print()const override {
 		this->items->printList();
 	};
-	bool Equals(const Sequence<T>& sequence) const override {
-		//this->items->Equals(sequence.GetFirst());
-		return NULL;
+
+	std::string PrintOut()const override {
+		return this->items->printListOut();
+	};
+	
+	bool Equals(const Sequence<T>* sequence) const override {
+		//this->items->Equals(sequence->GetFirst());
+		if (this == sequence) return true;
+		if (this->GetLength() != sequence->GetLength()) return false;
+		for (int i = 0; i < this->GetLength(); i++) {
+			return this->items->GetNth(i) == this->Get(i);
+		}
+
+	};
+
+	bool operator==(Sequence<T>* sequence) {
+		return this->Equals(sequence);
 	};
 	void Append(T value) {
 	    this->items->Append(value);

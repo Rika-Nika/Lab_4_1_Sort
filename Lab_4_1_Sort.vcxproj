@@ -146,6 +146,7 @@
     <ClInclude Include="Lab_4_1_Sort.h" />
     <ClInclude Include="LinkedList.hpp" />
     <ClInclude Include="LinkedListSequence.hpp" />
+    <ClInclude Include="Option.hpp" />
     <ClInclude Include="Queue.hpp" />
     <ClInclude Include="QueueArray.hpp" />
     <ClInclude Include="QueueLinkedList.hpp" />

@@ -25,6 +25,9 @@ const char* PATH_MEDIUM_FILE = "Medium.txt";
 const char* PATH_LARG_FILE = "Large.txt";
 
 const char* PATH_FILE = nullptr;
+
+ArraySequence<int> * inputSeq=new ArraySequence<int>();
+
 TypeImpl type_impl1 = TypeImpl::ARRAY_LIST;
 TypeImpl type_impl2 = TypeImpl::LINKED_LIST;
 
@@ -52,7 +55,7 @@ HWND hLargeButton = nullptr;
 //Алгоритм 1
 HWND hGrpButtonsAlg1 = nullptr;
 HWND hSortQuick1Button = nullptr;
-HWND hSortPyramid1Button = nullptr;
+HWND hSortHeap1Button = nullptr;
 HWND hSortShell1Button = nullptr;
 //Тип последовательности 1
 HWND hGrpButtonsSeq1 = nullptr;
@@ -61,7 +64,7 @@ HWND hLinkedlists1Button = nullptr;
 //Алгоритм 2
 HWND hGrpButtonsAlg2 = nullptr;
 HWND hSortQuick2Button = nullptr;
-HWND hSortPyramid2Button = nullptr;
+HWND hSortHeap2Button = nullptr;
 HWND hSortShell2Button = nullptr;
 //Тип последовательности 2
 HWND hGrpButtonsSeq2 = nullptr;
@@ -319,9 +322,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             (HMENU)10007,
             hInst, NULL);
 
-         hSortPyramid1Button = CreateWindowEx(WS_EX_WINDOWEDGE,
+         hSortHeap1Button = CreateWindowEx(WS_EX_WINDOWEDGE,
             L"BUTTON",
-            L"SortPyramid",
+            L"SortHeap",
             WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,  // Styles 
             350, 50,
             150, 20,
@@ -389,9 +392,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             (HMENU)10012,
             hInst, NULL);
 
-         hSortPyramid2Button = CreateWindowEx(WS_EX_WINDOWEDGE,
+         hSortHeap2Button = CreateWindowEx(WS_EX_WINDOWEDGE,
             L"BUTTON",
-            L"SortPyramid",
+            L"SortHeap",
             WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,  // Styles 
             530, 50,
             150, 20,
@@ -407,7 +410,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             hWnd,
             (HMENU)10014,
             hInst, NULL);
-        SendMessage(hSortQuick2Button, BM_SETCHECK, BST_CHECKED, 0);
+        SendMessage(hSortShell2Button, BM_SETCHECK, BST_CHECKED, 0);
         //Тип последовательности 2
          hGrpButtonsSeq2 = CreateWindowEx(WS_EX_WINDOWEDGE,
             L"BUTTON",
@@ -527,14 +530,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 PATH_FILE = PATH_LARG_FILE;
                 break;
             case 9999:
-                //TCHAR path[20];
+
                 //len = GetWindowText(hLoadPathButton, path, 20);
-                getSeq(hInputSeqButton, sizeSeq, IsDlgButtonChecked(hWnd, 10003), PATH_FILE);
+                inputSeq = getSeq(hInputSeqButton, sizeSeq, IsDlgButtonChecked(hWnd, 10003), PATH_FILE);
                 break;
 
             case 10000:
 
-                startTest(hInputSeqButton, hOutpuSeqtButton1, hOutpuSeqtButton2, alg1, alg2, type_impl1, type_impl2);
+                startTest(hInputSeqButton, hOutpuSeqtButton1, hOutpuSeqtButton2, alg1, alg2, type_impl1, type_impl2, inputSeq);
                 break;
 			case 10010:
 				type_impl1 = TypeImpl::ARRAY_LIST;
@@ -543,16 +546,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 type_impl1 = TypeImpl::LINKED_LIST;
                 break;
             case 10015:
-                type_impl1 = TypeImpl::ARRAY_LIST;
+                type_impl2 = TypeImpl::ARRAY_LIST;
                 break;
             case 10016:
-                type_impl1 = TypeImpl::LINKED_LIST;
+                type_impl2 = TypeImpl::LINKED_LIST;
                 break;
             case 10007:
                 alg1 = Alg::QUICK;
                 break;
             case 10008:
-                alg1 = Alg::PYRAMID;
+                alg1 = Alg::HEAP;
                 break;
             case 10009:
                 alg1 = Alg::SHELL;
@@ -561,7 +564,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 alg2 = Alg::QUICK;
                 break;
             case 10013:
-                alg2 = Alg::PYRAMID;
+                alg2 = Alg::HEAP;
                 break;
             case 10014:
                 alg2 = Alg::SHELL;
